@@ -48,6 +48,7 @@ class ViewController: UIViewController {
           print("Loading Succeeded")
         }
       }
+//        not return reward ads
     }
 
     @IBAction func rewardButton(_ sender: Any) {
