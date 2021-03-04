@@ -18,12 +18,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var rewardCount: UILabel!
     @IBOutlet weak var bannerView: GADBannerView!
     
-    public var rewardAds: GADRewardedAd?
+    var rewardAds: GADRewardedAd?
     var count = 0
     
     override var preferredStatusBarStyle: UIStatusBarStyle {return .lightContent}
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        rewardAds = createAndLoadRewardedAd()
+        
         initBase()
     }
     
@@ -39,8 +42,8 @@ class ViewController: UIViewController {
         bannerView.delegate = self
     }
     
-    func createAndLoadRewardedAd() {
-      rewardAds = GADRewardedAd(adUnitID: "ca-app-pub-3940256099942544/1712485313")
+    func createAndLoadRewardedAd() -> GADRewardedAd {
+      rewardAds = GADRewardedAd(adUnitID: "ca-app-pub-8053187318902731/2171937153")
       rewardAds?.load(GADRequest()) { error in
         if let error = error {
           print("Loading failed: \(error)")
@@ -48,7 +51,7 @@ class ViewController: UIViewController {
           print("Loading Succeeded")
         }
       }
-//        not return reward ads
+        return rewardAds!
     }
 
     @IBAction func rewardButton(_ sender: Any) {
@@ -81,6 +84,7 @@ extension ViewController: GADRewardedAdDelegate {
     }
     
     func rewardedAdDidDismiss(_ rewardedAd: GADRewardedAd) {
+        rewardAds = createAndLoadRewardedAd()
         print("Reward ads is dismiss")
     }
     
